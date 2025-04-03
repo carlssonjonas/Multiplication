@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LYSAKER SKOLE - Multiplication Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 150px;
+            margin-top: 30px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .problem {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        @media print {
+            button {
+                display: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>LYSAKER SKOLE</h1>
+    <h1>Multiplication Generator</h1>
+    <button onclick="generateTest()">Generate</button>
+    <button onclick="window.print()">Print</button>
+    
+    <div class="container" id="testContainer"></div>
+
+    <script>
+        function generateTest() {
+            let container = document.getElementById("testContainer");
+            container.innerHTML = ""; // Clear previous test
+
+            let formulas = [];
+
+            // Generate 60 random multiplication formulas
+            for (let i = 0; i < 58; i++) {
+                let x = Math.floor(Math.random() * 10) + 1;
+                let y = Math.floor(Math.random() * 10) + 1;
+                formulas.push(`${x} × ${y} = ______`);
+            }
+
+            // Create three columns
+            for (let i = 0; i < 3; i++) {
+                let column = document.createElement("div");
+                column.classList.add("column");
+
+                for (let j = 0; j < 18; j++) {
+                    let problem = document.createElement("div");
+                    problem.classList.add("problem");
+                    problem.textContent = formulas[i * 20 + j];
+                    column.appendChild(problem);
+                }
+
+                container.appendChild(column);
+            }
+        }
+    </script>
+
+</body>
+</html>
