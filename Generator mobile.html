@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LYSAKER SKOLE - Multiplication Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            min-width: 100px;
+        }
+        .problem {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            .column {
+                width: 100%;
+                align-items: center;
+            }
+        }
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 20mm;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            button {
+                display: none;
+            }
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 20px;
+                page-break-inside: avoid;
+            }
+            .column {
+                flex: 1;
+                gap: 15px;
+            }
+            .problem {
+                font-size: 14pt;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>LYSAKER SKOLE</h1>
+    <h1>Multiplication Generator</h1>
+    <button onclick="generateTest()">Generate</button>
+    <button onclick="window.print()">Print</button>
+    
+    <div class="container" id="testContainer"></div>
+
+    <script>
+        function generateTest() {
+            let container = document.getElementById("testContainer");
+            container.innerHTML = ""; // Clear previous test
+
+            let formulas = [];
+
+            // Generate 60 random multiplication formulas
+            for (let i = 0; i < 60; i++) {
+                let x = Math.floor(Math.random() * 10) + 1;
+                let y = Math.floor(Math.random() * 10) + 1;
+                formulas.push(`${x} × ${y} = ______`);
+            }
+
+            // Create three columns
+            for (let i = 0; i < 3; i++) {
+                let column = document.createElement("div");
+                column.classList.add("column");
+
+                for (let j = 0; j < 20; j++) {
+                    let problem = document.createElement("div");
+                    problem.classList.add("problem");
+                    problem.textContent = formulas[i * 20 + j];
+                    column.appendChild(problem);
+                }
+
+                container.appendChild(column);
+            }
+        }
+    </script>
+
+</body>
+</html>
